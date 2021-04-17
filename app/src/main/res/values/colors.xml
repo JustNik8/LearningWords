@@ -8,13 +8,22 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="gray">#3b3b3b</color>
+    <color name="gray">#1f1f1f</color>
 
     <color name="primary_color">#009688</color>
 
+    <!-- Colors of bottom navigation icons -->
     <color name="bottom_nav_color">#009688</color>
     <color name="icons_active_color">#e88e72</color>
     <color name="icons_inactive_color">#540000</color>
+    <!-- Light Theme -->
+    <color name="bottom_nav_color_light">#FFFFFFFF</color>
+    <color name="icons_active_color_light">#0023d1</color>
+    <color name="icons_inactive_color_light">#404040</color>
+    <!-- Dark Theme -->
+    <color name="bottom_nav_color_dark">#FF000000</color>
+    <color name="icons_active_color_dark">#FFFFFFFF</color>
+    <color name="icons_inactive_color_dark">#404040</color>
 
     <color name="fab_icon_color">#26c7da</color>
     <color name="fab_color">#83260f</color>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LearningWords</string>
+    <string name="title_home">Главная</string>
+    <string name="title_dictionary">Словарь</string>
+    <string name="add_a_word">Добавить слово</string>
+    <string name="title_training">Тренажеры</string>
+    <string name="title_settings">Настройки</string>
+    <string name="choose_theme_text">Выбор темы:</string>
+
+    <string-array name="themes">
+        <item>По умолчанию</item>
+        <item>Светлая</item>
+        <item>Темная</item>
+    </string-array>
+</resources>

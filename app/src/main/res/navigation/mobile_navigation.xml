@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/navigation_training"
         android:name="com.example.learningwords.ui.training.TrainingFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_training"
         tools:layout="@layout/fragment_training" />
     <fragment
         android:id="@+id/navigation_settings"
