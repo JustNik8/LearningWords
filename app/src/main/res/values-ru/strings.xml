@@ -6,11 +6,12 @@
     <string name="add_a_word">Добавить слово</string>
     <string name="title_training">Тренажеры</string>
     <string name="title_settings">Настройки</string>
-    <string name="choose_theme_text">Выбор темы:</string>
 
-    <string-array name="themes">
-        <item>По умолчанию</item>
-        <item>Светлая</item>
-        <item>Темная</item>
-    </string-array>
+    <!-- Settings strings -->
+    <string name="choose_theme_text">Выбор темы</string>
+    <string name="app_settings_title">Настройки приложения</string>
+    <string name="level_settings_title">Настройки вашего уровня</string>
+    <string name="choose_level_title">Ваш уровень английского</string>
+    <string-array name="choose_theme_title">Выберите тему</string-array>
+
 </resources>

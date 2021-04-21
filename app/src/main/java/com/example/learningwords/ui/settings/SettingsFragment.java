@@ -1,5 +1,27 @@
 package com.example.learningwords.ui.settings;
 
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.learningwords.MainActivity;
+import com.example.learningwords.R;
+
+public class SettingsFragment extends PreferenceFragmentCompat {
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.settings_preferences, rootKey);
+    }
+}
+
+
+
+/*package com.example.learningwords.ui.settings;
+
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,12 +31,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceFragmentCompat;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -75,4 +99,4 @@ public class SettingsFragment extends Fragment {
     }
 
 
-}
+} */

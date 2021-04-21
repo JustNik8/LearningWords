@@ -1,0 +1,34 @@
+<resources>
+    <!-- theme settings -->
+    <string-array name="themes">
+        <item>Default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    
+    <string-array name="themes_values">
+        <item>default</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <!-- English level settings -->
+    <string-array name="levels">
+        <item>A1</item>
+        <item>A2</item>
+        <item>B1</item>
+        <item>B2</item>
+        <item>C1</item>
+        <item>C2</item>
+    </string-array>
+
+    <string-array name="levels_values">
+        <item>a1</item>
+        <item>a2</item>
+        <item>b1</item>
+        <item>b2</item>
+        <item>c1</item>
+        <item>c2</item>
+    </string-array>
+
+</resources>

@@ -1,10 +1,12 @@
 package com.example.learningwords;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LogPrinter;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -13,6 +15,7 @@ import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
@@ -20,12 +23,20 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String CONFIGURED = "configured";
+    private static final String preferencesPath = "com.example.learningwords";
+    private String userLevel;
+    private boolean configured = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +52,52 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+        shared.registerOnSharedPreferenceChangeListener(this);
 
+        if(savedInstanceState == null) {
+            configured = true;
+            changeTheme(shared.getString("theme", "default"));
+            userLevel = shared.getString("level", "a1");
+        }
+        else {
+            configured = savedInstanceState.getBoolean(CONFIGURED);
+            if (!configured){
+                changeTheme(shared.getString("theme", "default"));
+                userLevel = shared.getString("level", "a1");
+            }
+        }
 
     }
 
+    private void changeTheme(String theme){
+        Log.d(LOG_TAG, "INSIDE changeTheme");
+        if (theme.equals(getResources().getStringArray(R.array.themes_values)[0])){ //Default theme
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
+        else if (theme.equals(getResources().getStringArray(R.array.themes_values)[1])){ //Light theme
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        else if (theme.equals(getResources().getStringArray(R.array.themes_values)[2])){ //Dark theme
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+    }
+
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(LOG_TAG, "onSharedPreferenceChanged");
+        if (key.equals("theme")){
+            changeTheme(sharedPreferences.getString(key, "default"));
+        }
+        else if (key.equals("level")){
+            this.userLevel = sharedPreferences.getString(key, "a1");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(CONFIGURED, configured);
+    }
 }

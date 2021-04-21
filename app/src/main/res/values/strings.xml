@@ -5,11 +5,11 @@
     <string name="add_a_word">Add a word</string>
     <string name="title_training">Training</string>
     <string name="title_settings">Settings</string>
-    <string name="choose_theme_text">Choose these:</string>
 
-    <string-array name="themes">
-        <item>Default</item>
-        <item>Light</item>
-        <item>Dark</item>
-    </string-array>
+    <!-- Settings strings -->
+    <string name="choose_theme_text">Choose theme</string>
+    <string name="choose_level_title">Choose your English level</string>
+    <string name="app_settings_title">App settings</string>
+    <string name="level_settings_title">Your level settings</string>
+    <string-array name="choose_theme_title">Choose theme</string-array>
 </resources>
