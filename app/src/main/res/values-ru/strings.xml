@@ -12,6 +12,16 @@
     <string name="app_settings_title">Настройки приложения</string>
     <string name="level_settings_title">Настройки вашего уровня</string>
     <string name="choose_level_title">Ваш уровень английского</string>
+    <string name="notifications_title">Уведомления</string>
+    <string name="notifications_text">Открыть настройки уведомлений</string>
     <string-array name="choose_theme_title">Выберите тему</string-array>
+
+    <!-- Add word fragment -->
+    <string name="add_word_title">Добавлнение слова</string>
+    <string name="original_word_text">Исходное слово</string>
+    <string name="translated_word_text">Перевод</string>
+    <string name="add_word_text">Добавить слово</string>
+    <string name="error_filled_in">Необходимо заполнить</string>
+    <string name="error_english_word">Должно быть английское слово</string>
 
 </resources>

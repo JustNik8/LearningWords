@@ -1,35 +1,69 @@
 package com.example.learningwords.ui.dictionary;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.learningwords.DBClient;
+import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
+import com.example.learningwords.Word;
+import com.example.learningwords.WordAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DictionaryFragment extends Fragment {
 
     private DictionaryViewModel dictionaryViewModel;
+    private Word word;
+    private boolean wordWasAdded = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dictionaryViewModel =
-                new ViewModelProvider(this).get(DictionaryViewModel.class);
+        dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dictionary, container, false);
-        final TextView textView = root.findViewById(R.id.text_dictionary);
-        dictionaryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+        RecyclerView recyclerView = root.findViewById(R.id.rv_words);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        WordAdapter wordAdapter = new WordAdapter();
+        recyclerView.setAdapter(wordAdapter);
+
+        dictionaryViewModel.getAllWords().observe( getViewLifecycleOwner(), new Observer<List<Word>>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(List<Word> words) {
+                wordAdapter.setWords(words);
             }
         });
+
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                NavHostFragment.findNavController(DictionaryFragment.this)
+                        .navigate(R.id.action_navigation_dictionary_to_addWordFragment);
+            }
+        });
+
+
         return root;
     }
+
 }

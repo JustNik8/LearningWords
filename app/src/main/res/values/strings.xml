@@ -11,5 +11,15 @@
     <string name="choose_level_title">Choose your English level</string>
     <string name="app_settings_title">App settings</string>
     <string name="level_settings_title">Your level settings</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_text">Open notifications settings</string>
     <string-array name="choose_theme_title">Choose theme</string-array>
+
+    <!-- Add word fragment -->
+    <string name="add_word_title">Adding a word</string>
+    <string name="original_word_text">Original word</string>
+    <string name="translated_word_text">Translated word</string>
+    <string name="add_word_text">Add the word</string>
+    <string name="error_filled_in">Must be filled in</string>
+    <string name="error_english_word">Must be english word</string>
 </resources>

@@ -15,7 +15,11 @@
         android:id="@+id/navigation_dictionary"
         android:name="com.example.learningwords.ui.dictionary.DictionaryFragment"
         android:label="@string/title_dictionary"
-        tools:layout="@layout/fragment_dictionary" />
+        tools:layout="@layout/fragment_dictionary" >
+        <action
+            android:id="@+id/action_navigation_dictionary_to_addWordFragment"
+            app:destination="@id/addWordFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_training"
@@ -27,4 +31,13 @@
         android:name="com.example.learningwords.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/addWordFragment"
+        android:name="com.example.learningwords.ui.dictionary.AddWordFragment"
+        android:label="fragment_add_word"
+        tools:layout="@layout/fragment_add_word" >
+        <action
+            android:id="@+id/action_addWordFragment_to_navigation_dictionary"
+            app:destination="@id/navigation_dictionary" />
+    </fragment>
 </navigation>

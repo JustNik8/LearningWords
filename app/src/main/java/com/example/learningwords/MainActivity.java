@@ -1,10 +1,14 @@
 package com.example.learningwords;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.LogPrinter;
 import android.view.View;
@@ -13,28 +17,40 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.learningwords.ui.dictionary.AddWordFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String CONFIGURED = "configured";
-    private static final String preferencesPath = "com.example.learningwords";
+    public static final String packageName = "com.example.learningwords";
+
     private String userLevel;
     private boolean configured = false;
 
@@ -68,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         }
 
+
     }
 
     private void changeTheme(String theme){
@@ -100,4 +117,5 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         super.onSaveInstanceState(outState);
         outState.putBoolean(CONFIGURED, configured);
     }
+
 }
