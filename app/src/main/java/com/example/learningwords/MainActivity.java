@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String CONFIGURED = "configured";
     public static final String packageName = "com.example.learningwords";
 
-    private String userLevel;
     private boolean configured = false;
 
     @Override
@@ -74,13 +73,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if(savedInstanceState == null) {
             configured = true;
             changeTheme(shared.getString("theme", "default"));
-            userLevel = shared.getString("level", "a1");
         }
         else {
             configured = savedInstanceState.getBoolean(CONFIGURED);
             if (!configured){
                 changeTheme(shared.getString("theme", "default"));
-                userLevel = shared.getString("level", "a1");
             }
         }
 
@@ -106,9 +103,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Log.d(LOG_TAG, "onSharedPreferenceChanged");
         if (key.equals("theme")){
             changeTheme(sharedPreferences.getString(key, "default"));
-        }
-        else if (key.equals("level")){
-            this.userLevel = sharedPreferences.getString(key, "a1");
         }
     }
 

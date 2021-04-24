@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dictionary.DictionaryFragment">
+    tools:context=".ui.dictionary.DictionaryFragment"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_words"
+        tools:listitem="@layout/word_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

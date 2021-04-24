@@ -14,13 +14,25 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="@string/level_settings_title">
+        app:title="@string/user_setting_title">
         <ListPreference
             app:entries="@array/levels"
             app:entryValues="@array/levels_values"
             android:key="level"
             app:title="@string/choose_level_title"
             app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:defaultValue="10"
+            android:key="words_amount"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/words_amount_title"
+            android:dialogMessage="@string/words_amount_dialog_message"/>
+        <Preference
+            app:title="@string/clear_dictionary_title"
+            android:key="clear_dictionary"/>
+
 
     </PreferenceCategory>
 
@@ -29,7 +41,6 @@
 
         <Preference app:title="@string/notifications_text"
             android:key="notification"/>
-
 
     </PreferenceCategory>
 </PreferenceScreen>

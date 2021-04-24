@@ -7,14 +7,21 @@
     <string name="title_training">Тренажеры</string>
     <string name="title_settings">Настройки</string>
 
+
     <!-- Settings strings -->
     <string name="choose_theme_text">Выбор темы</string>
     <string name="app_settings_title">Настройки приложения</string>
-    <string name="level_settings_title">Настройки вашего уровня</string>
+    <string name="user_setting_title">Пользовательские настройки</string>
     <string name="choose_level_title">Ваш уровень английского</string>
     <string name="notifications_title">Уведомления</string>
     <string name="notifications_text">Открыть настройки уведомлений</string>
     <string-array name="choose_theme_title">Выберите тему</string-array>
+    <string name="words_amount_dialog_message">Допускается от 1 до 50 слов\n(Рекомендуется: от 10 до 20)</string>
+    <string name="words_amount_title">Количество слов</string>
+    <string name="clear_dictionary_title">Очистить словарь</string>
+    <string name="dialog_alert">Вы уверены, что хотите очистить словарь?</string>
+    <string name="yes_button">Да</string>
+    <string name="no_button">Нет</string>
 
     <!-- Add word fragment -->
     <string name="add_word_title">Добавлнение слова</string>

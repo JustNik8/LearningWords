@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         Word word = words.get(position);
         holder.originalWord.setText(word.getOriginal());
         holder.translatedWord.setText(word.getTranslated());
+
+        boolean isExpanded = words.get(position).isExpanded();
+        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
     }
 
     public void addWord(Word word){
@@ -51,12 +55,27 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
         TextView originalWord;
         TextView translatedWord;
+        ConstraintLayout expandableLayout;
+        ConstraintLayout mainLayout;
 
         public WordViewHolder(@NonNull View itemView) {
             super(itemView);
 
             originalWord = itemView.findViewById(R.id.original_word);
             translatedWord = itemView.findViewById(R.id.translated_word);
+            expandableLayout = itemView.findViewById(R.id.expandable_layout);
+            mainLayout = itemView.findViewById(R.id.main);
+
+            mainLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Word word = words.get(getAdapterPosition());
+                    word.setExpanded(!word.isExpanded());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
+
+
 
         }
     }

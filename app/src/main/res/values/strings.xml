@@ -10,10 +10,16 @@
     <string name="choose_theme_text">Choose theme</string>
     <string name="choose_level_title">Choose your English level</string>
     <string name="app_settings_title">App settings</string>
-    <string name="level_settings_title">Your level settings</string>
+    <string name="user_setting_title">User settings</string>
     <string name="notifications_title">Notifications</string>
     <string name="notifications_text">Open notifications settings</string>
     <string-array name="choose_theme_title">Choose theme</string-array>
+    <string name="words_amount_dialog_message">Allowed from 1 to 50 words\n(Recommended: from 10 to 20)</string>
+    <string name="words_amount_title">Amount of words</string>
+    <string name="clear_dictionary_title">Clear dictionary</string>
+    <string name="dialog_alert">Are you sure you want to clear dictionary?</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
 
     <!-- Add word fragment -->
     <string name="add_word_title">Adding a word</string>
@@ -22,4 +28,5 @@
     <string name="add_word_text">Add the word</string>
     <string name="error_filled_in">Must be filled in</string>
     <string name="error_english_word">Must be english word</string>
+
 </resources>

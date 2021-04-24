@@ -1,22 +1,27 @@
 package com.example.learningwords.ui.settings;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.learningwords.Repository;
+
 import java.util.ArrayList;
 
-public class SettingsViewModel extends ViewModel {
-    private MutableLiveData<String> mText;
-    private MutableLiveData<ArrayList<String>> themes;
+public class SettingsViewModel extends AndroidViewModel {
 
+    Repository repository;
 
-    public SettingsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is settings fragment");
+    public SettingsViewModel(@NonNull Application application) {
+        super(application);
+        repository = new Repository(application);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void deleteAll(){
+        repository.deleteAll();
     }
 }

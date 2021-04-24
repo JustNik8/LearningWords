@@ -2,12 +2,14 @@ package com.example.learningwords;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
 @Entity(tableName = "words")
 public class Word implements Serializable {
+
     @PrimaryKey (autoGenerate = true)
     private int id;
 
@@ -16,9 +18,21 @@ public class Word implements Serializable {
     @ColumnInfo(name = "translated")
     private String translated;
 
+    @Ignore
+    private boolean expanded;
+
     public Word(String original, String translated) {
         this.original = original;
         this.translated = translated;
+        expanded = false;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
     public int getId() {
