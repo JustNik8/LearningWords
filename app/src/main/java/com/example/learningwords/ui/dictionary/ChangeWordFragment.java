@@ -1,16 +1,12 @@
 package com.example.learningwords.ui.dictionary;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,51 +18,59 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.learningwords.DBClient;
-import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
-import com.example.learningwords.Repository;
 import com.example.learningwords.Word;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ChangeWordFragment extends Fragment {
 
-public class AddWordFragment extends Fragment {
+    private Button changeWordButton;
+    private EditText etOriginalWord;
+    private EditText etTranslatedWord;
 
-    Button addWordButton;
-    EditText etOriginalWord;
-    EditText etTranslatedWord;
+    private Word wordToChange;
+
     DictionaryViewModel dictionaryViewModel;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null){
+            wordToChange = (Word) getArguments().getSerializable(DictionaryFragment.BUNDLE_ARG_WORD);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_add_word, container, false);
         dictionaryViewModel = new ViewModelProvider(this).get(DictionaryViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_change_word, container, false);
 
-        etOriginalWord = root.findViewById(R.id.add_original_word);
-        etTranslatedWord = root.findViewById(R.id.add_translated_word);
+        etOriginalWord = root.findViewById(R.id.change_original_word);
+        etTranslatedWord = root.findViewById(R.id.change_translated_word);
 
+        etOriginalWord.setText(wordToChange.getOriginal());
+        etTranslatedWord.setText(wordToChange.getTranslated());
         etTranslatedWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE){
                     if (checkWords()){
-                        addWord();
+                        changeWord();
+                        Toast.makeText(getContext(), getString(R.string.word_changed_text), Toast.LENGTH_SHORT).show();
                     }
                 }
                 return true;
             }
         });
 
-        addWordButton = root.findViewById(R.id.add_word_button);
-        addWordButton.setOnClickListener(new View.OnClickListener() {
+        changeWordButton = root.findViewById(R.id.change_word_button);
+        changeWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkWords()){
-                    addWord();
+                    changeWord();
+                    Toast.makeText(getContext(), getString(R.string.word_changed_text), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -74,26 +78,24 @@ public class AddWordFragment extends Fragment {
         return root;
     }
 
-    // main logic of adding word. Firstly, keyboard becomes hidden. Secondly, a new instance of Word is created,
-    // this words is added to room database. Finally, AddWordFragment navigates to fragment dictionary.
-    private void addWord(){
+    public void changeWord(){
         View view = getActivity().getCurrentFocus();
         if (view != null){
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+
         String originalWord = etOriginalWord.getText().toString();
         String translatedWord = etTranslatedWord.getText().toString();
-        Word word = new Word(originalWord, translatedWord);
+        wordToChange.setOriginal(originalWord);
+        wordToChange.setTranslated(translatedWord);
 
-        dictionaryViewModel.insert(word);
+        dictionaryViewModel.update(wordToChange);
 
-        NavHostFragment.findNavController(AddWordFragment.this)
-                .navigate(R.id.action_addWordFragment_to_navigation_dictionary);
+        NavHostFragment.findNavController(ChangeWordFragment.this)
+                .navigate(R.id.action_changeWordFragment_to_navigation_dictionary);
     }
 
-    // The method checks input words. If there are empty fields or original edit text has not english word,
-    // then error sets to the edit text
     private boolean checkWords(){
         String originalWord = etOriginalWord.getText().toString();
         String translatedWord= etTranslatedWord.getText().toString();
@@ -122,6 +124,4 @@ public class AddWordFragment extends Fragment {
 
         return true;
     }
-
-
 }

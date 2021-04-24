@@ -6,6 +6,8 @@
     <string name="add_a_word">Добавить слово</string>
     <string name="title_training">Тренажеры</string>
     <string name="title_settings">Настройки</string>
+    <string name="title_add_word">Добавление слова</string>
+    <string name="title_change_word">Редактирование слова</string>
 
 
     <!-- Settings strings -->
@@ -22,6 +24,9 @@
     <string name="dialog_alert">Вы уверены, что хотите очистить словарь?</string>
     <string name="yes_button">Да</string>
     <string name="no_button">Нет</string>
+    <string name="dictionary_cleared_text">Словарь был очищен</string>
+    <string name="word_changed_text">Слово было обновлено</string>
+    <string name="word_deleted_text">Слово было удалено</string>
 
     <!-- Add word fragment -->
     <string name="add_word_title">Добавлнение слова</string>
@@ -30,5 +35,13 @@
     <string name="add_word_text">Добавить слово</string>
     <string name="error_filled_in">Необходимо заполнить</string>
     <string name="error_english_word">Должно быть английское слово</string>
+
+    <!-- Change word fragment -->
+    <string name="changing_word_title">Изменение слова</string>
+    <string name="change_word_button_text">Изменить слово</string>
+
+    <!-- Word item -->
+    <string name="button_edit_text">Редактировать</string>
+    <string name="button_delete_text">Удалить</string>
 
 </resources>

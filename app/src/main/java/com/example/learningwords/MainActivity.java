@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.LogPrinter;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -80,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 changeTheme(shared.getString("theme", "default"));
             }
         }
-
 
     }
 

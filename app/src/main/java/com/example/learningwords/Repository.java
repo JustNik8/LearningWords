@@ -1,6 +1,7 @@
 package com.example.learningwords;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -44,6 +45,31 @@ public class Repository {
             }
         };
         deleteAllThread.start();
+    }
+
+    public void deleteWord(Word word){
+        Thread deleteWordThread = new Thread(){
+            @Override
+            public void run() {
+                DBClient.getInstance(context).getAppDatabase()
+                        .wordDao()
+                        .delete(word);
+            }
+        };
+        deleteWordThread.start();
+    }
+
+    public void update(Word word){
+        Log.d(MainActivity.LOG_TAG, "Inside update:" + word.getOriginal() + " " + word.getTranslated());
+        Thread updateThread = new Thread(){
+            @Override
+            public void run() {
+                DBClient.getInstance(context).getAppDatabase()
+                        .wordDao()
+                        .update(word);
+            }
+        };
+        updateThread.start();
     }
 
 }

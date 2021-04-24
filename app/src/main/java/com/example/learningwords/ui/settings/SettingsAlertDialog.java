@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ public class SettingsAlertDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         settingsViewModel.deleteAll();
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.dictionary_cleared_text), Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton(getString(R.string.no_button), new DialogInterface.OnClickListener() {

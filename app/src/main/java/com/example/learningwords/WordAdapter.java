@@ -1,13 +1,22 @@
 package com.example.learningwords;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.learningwords.ui.dictionary.DictionaryFragment;
+import com.example.learningwords.ui.dictionary.DictionaryViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +26,11 @@ import java.util.Map;
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
 
     List<Word> words = new ArrayList<>();
+    DictionaryViewModel dictionaryViewModel;
 
+    public WordAdapter(Fragment f) {
+        dictionaryViewModel = new ViewModelProvider(f).get(DictionaryViewModel.class);
+    }
 
     @NonNull
     @Override
@@ -57,6 +70,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         TextView translatedWord;
         ConstraintLayout expandableLayout;
         ConstraintLayout mainLayout;
+        Button buttonEdit, buttonDelete;
 
         public WordViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +89,25 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
                 }
             });
 
+            buttonEdit = itemView.findViewById(R.id.button_edit);
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle args = new Bundle();
+                    args.putSerializable(DictionaryFragment.BUNDLE_ARG_WORD, words.get(getAdapterPosition()));
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_dictionary_to_changeWordFragment, args);
+                }
+            });
+
+
+            buttonDelete = itemView.findViewById(R.id.button_delete);
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Word word = words.get(getAdapterPosition());
+                    dictionaryViewModel.deleteWord(word);
+                }
+            });
 
 
         }

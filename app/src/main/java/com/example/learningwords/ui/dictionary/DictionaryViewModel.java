@@ -3,6 +3,7 @@ package com.example.learningwords.ui.dictionary;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.learningwords.MainActivity;
+import com.example.learningwords.R;
 import com.example.learningwords.Repository;
 import com.example.learningwords.Word;
 
@@ -49,6 +51,15 @@ public class DictionaryViewModel extends AndroidViewModel {
 
     public void deleteAll(){
         repository.deleteAll();
+    }
+
+    public void deleteWord(Word word){
+        repository.deleteWord(word);
+        Toast.makeText(getApplication().getApplicationContext(), getApplication().getString(R.string.word_deleted_text), Toast.LENGTH_SHORT).show();
+    }
+
+    public void update(Word word) {
+        repository.update(word);
     }
 
 }

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_dictionary_to_addWordFragment"
             app:destination="@id/addWordFragment" />
+        <action
+            android:id="@+id/action_navigation_dictionary_to_changeWordFragment"
+            app:destination="@id/changeWordFragment" />
     </fragment>
 
     <fragment
@@ -34,10 +37,22 @@
     <fragment
         android:id="@+id/addWordFragment"
         android:name="com.example.learningwords.ui.dictionary.AddWordFragment"
-        android:label="fragment_add_word"
-        tools:layout="@layout/fragment_add_word" >
+        android:label="@string/add_word_title"
+        tools:layout="@layout/fragment_add_word">
         <action
             android:id="@+id/action_addWordFragment_to_navigation_dictionary"
-            app:destination="@id/navigation_dictionary" />
+            app:destination="@id/navigation_dictionary"
+            app:popUpTo="@+id/navigation_dictionary"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/changeWordFragment"
+        android:name="com.example.learningwords.ui.dictionary.ChangeWordFragment"
+        android:label="@string/title_change_word">
+        <action
+            android:id="@+id/action_changeWordFragment_to_navigation_dictionary"
+            app:destination="@id/navigation_dictionary"
+            app:popUpTo="@+id/navigation_dictionary"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

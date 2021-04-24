@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     tools:context=".ui.dictionary.AddWordFragment"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/add_word_title"
+        android:id="@+id/change_word_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_word_title"
+        android:text="@string/changing_word_title"
         android:textSize="32sp"
         android:layout_gravity="center" />
 
     <EditText
-        android:id="@+id/add_original_word"
+        android:id="@+id/change_original_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/original_word_text"
@@ -26,19 +25,19 @@
         android:inputType="textCapSentences" />
 
     <EditText
-        android:id="@+id/add_translated_word"
+        android:id="@+id/change_translated_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/translated_word_text"
         android:layout_marginTop="16dp"
-        android:inputType="textCapSentences"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences" />
 
     <Button
-        android:id="@+id/add_word_button"
+        android:id="@+id/change_word_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/add_word_text"
+        android:text="@string/change_word_button_text"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"/>
 
