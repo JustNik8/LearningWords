@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.media.audiofx.BassBoost;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 changeTheme(shared.getString("theme", "default"));
             }
         }
+
 
     }
 

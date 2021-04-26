@@ -9,11 +9,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -24,6 +26,7 @@ import com.example.learningwords.ui.home.HomeViewModel;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private SettingsViewModel settingsViewModel;
+    private int sourceAmount;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -59,6 +62,31 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             });
         }
+
+        EditTextPreference wordsAmountPreference = findPreference("words_amount");
+        sourceAmount = Integer.parseInt(wordsAmountPreference.getText());
+        wordsAmountPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                String amountString = (String) newValue;
+                for (int i = 0; i < amountString.length(); i++){
+                    // Checking for a number
+                    if ((amountString.charAt(i) < '0' || amountString.charAt(i) > '9') && amountString.charAt(i) != '-'){
+                        Toast.makeText(getContext(), getString(R.string.input_number_error), Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+                }
+
+                int amount = Integer.parseInt(amountString);
+                // Checking for valid number
+                if (amount < 1 || amount > 50){
+                    Toast.makeText(getContext(), getString(R.string.invalid_number_error), Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                return true;
+            }
+        });
+
     }
 
 }

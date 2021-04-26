@@ -25,6 +25,8 @@
     <string name="dictionary_cleared_text">The dictionary was cleared</string>
     <string name="word_changed_text">The word was updated</string>
     <string name="word_deleted_text">The word was deleted</string>
+    <string name="input_number_error">Input a number</string>
+    <string name="invalid_number_error">Invalid number was entered</string>
 
     <!-- Add word fragment -->
     <string name="add_word_title">Adding a word</string>

@@ -27,6 +27,8 @@
     <string name="dictionary_cleared_text">Словарь был очищен</string>
     <string name="word_changed_text">Слово было обновлено</string>
     <string name="word_deleted_text">Слово было удалено</string>
+    <string name="input_number_error">Введите число</string>
+    <string name="invalid_number_error">Было введено недопустимое число</string>
 
     <!-- Add word fragment -->
     <string name="add_word_title">Добавлнение слова</string>
@@ -43,5 +45,6 @@
     <!-- Word item -->
     <string name="button_edit_text">Редактировать</string>
     <string name="button_delete_text">Удалить</string>
+
 
 </resources>
