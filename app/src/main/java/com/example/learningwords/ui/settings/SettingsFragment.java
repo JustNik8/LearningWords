@@ -87,6 +87,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        Preference signOutPref = findPreference("sign_out");
+        if (signOutPref != null){
+            signOutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    SignOutDialog signOutDialog = new SignOutDialog();
+                    signOutDialog.show(getActivity().getSupportFragmentManager(), null);
+                    return true;
+                }
+            });
+        }
+
     }
 
 }

@@ -22,6 +22,8 @@ import android.widget.Spinner;
 import com.example.learningwords.ui.dictionary.AddWordFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String CONFIGURED = "configured";
     public static final String packageName = "com.example.learningwords";
+    public static final String USER_KEY = "User";
+    FirebaseDatabase database;
 
     private boolean configured = false;
 
@@ -84,6 +88,22 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         }
 
+        database = FirebaseDatabase.getInstance("https://learningwordsdatabase-default-rtdb.europe-west1.firebasedatabase.app/");
+        DatabaseReference dbRef = database.getReference(USER_KEY);
+
+        /*
+        List<HomeWord> wordList = new ArrayList<>();
+        for (int i = 0; i < 10; i++){
+            wordList.add(new HomeWord("Word", "Слово", "B1"));
+        }
+        String id = dbRef.getKey();
+        User user = new User("Sanya", wordList, id);
+        id = dbRef.getKey();
+        User user1 = new User("Alex", wordList, id);
+
+        dbRef.push().setValue(user);
+        dbRef.push().setValue(user1);
+        */
 
     }
 

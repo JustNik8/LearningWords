@@ -46,5 +46,26 @@
     <string name="button_edit_text">Редактировать</string>
     <string name="button_delete_text">Удалить</string>
 
+    <!-- Home Fragment -->
+    <string name="learn_new_words">Изучать новые слова</string>
+
+    <!-- Login -->
+    <string name="text_login">Login</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="button_sign_in">Sign In</string>
+    <string name="button_sign_up">Sing Up</string>
+    <string name="error_sign_up">The email address is badly formatted or password length less than 6</string>
+    <string name="button_forgot_password">Forgot Password?</string>
+    <string name="title_sign_up">OR</string>
+    <string name="button_sign_up_email">Sign Up with email</string>
+    <string name="button_sign_up_phone">Sign up with phone number</string>
+    <string name="button_sign_in_google">Sign in with Google</string>
+    <string name="title_sign_up_email">Sign Up with email</string>
+    <string name="button_sign_up_email2">Sign up</string>
+    <string name="email_entered_as_text">You entered as:</string>
+    <string name="button_verify_email">Verify Email</string>
+    <string name="sign_out">Sign Out</string>
+
 
 </resources>

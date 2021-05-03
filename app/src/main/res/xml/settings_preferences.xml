@@ -11,6 +11,9 @@
             app:title="@string/choose_theme_text"
             app:useSimpleSummaryProvider="true"/>
 
+        <Preference app:title="@string/notifications_text"
+            android:key="notification"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -33,14 +36,13 @@
             app:title="@string/clear_dictionary_title"
             android:key="clear_dictionary"/>
 
-
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="@string/notifications_title">
-
-        <Preference app:title="@string/notifications_text"
-            android:key="notification"/>
-
+        app:title="User">
+        <Preference
+            app:title="Sign Out"
+            android:key="sign_out"/>
     </PreferenceCategory>
+
 </PreferenceScreen>

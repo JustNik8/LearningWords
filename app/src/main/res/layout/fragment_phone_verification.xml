@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.PhoneVerificationFragment"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_sign_up_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_entered_as_text"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:id="@+id/phone_in_verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+
+    <Button
+        android:layout_marginTop="32dp"
+        android:id="@+id/button_verify_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_verify_email" />
+
+    <Button
+        android:layout_marginTop="8dp"
+        android:id="@+id/button_sign_out_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out" />
+
+
+</LinearLayout>

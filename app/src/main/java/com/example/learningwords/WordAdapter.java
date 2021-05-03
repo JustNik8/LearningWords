@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,9 +18,8 @@ import com.example.learningwords.ui.dictionary.DictionaryFragment;
 import com.example.learningwords.ui.dictionary.DictionaryViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
 

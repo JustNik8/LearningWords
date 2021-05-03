@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_navigation"
+    app:startDestination="@id/mainLoginFragment">
+    <fragment
+        android:id="@+id/mainLoginFragment"
+        android:name="com.example.learningwords.ui.login.MainLoginFragment"
+        android:label="fragment_main_login"
+        tools:layout="@layout/fragment_main_login" >
+        <action
+            android:id="@+id/action_mainLoginFragment_to_signUpEmailFragment"
+            app:destination="@id/signUpEmailFragment" />
+        <action
+            android:id="@+id/action_mainLoginFragment_to_phoneVerificationFragment"
+            app:destination="@id/phoneVerificationFragment" />
+        <action
+            android:id="@+id/action_mainLoginFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_mainLoginFragment_to_emailVerificationFragment"
+            app:destination="@id/emailVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpEmailFragment"
+        android:name="com.example.learningwords.ui.login.SignUpEmailFragment"
+        android:label="fragment_sign_up_email"
+        tools:layout="@layout/fragment_sign_up_email" >
+        <action
+            android:id="@+id/action_signUpEmailFragment_to_emailVerificationFragment"
+            app:destination="@id/emailVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailVerificationFragment"
+        android:name="com.example.learningwords.ui.login.EmailVerificationFragment"
+        android:label="fragment_verification"
+        tools:layout="@layout/fragment_email_verification" >
+        <action
+            android:id="@+id/action_verificationFragment_to_mainLoginFragment"
+            app:destination="@id/mainLoginFragment" />
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.learningwords.MainActivity"
+        android:label="MainActivity" />
+    <fragment
+        android:id="@+id/phoneVerificationFragment"
+        android:name="com.example.learningwords.ui.login.PhoneVerificationFragment"
+        android:label="fragment_phone_verification"
+        tools:layout="@layout/fragment_phone_verification" >
+        <action
+            android:id="@+id/action_phoneVerificationFragment_to_mainLoginFragment"
+            app:destination="@id/mainLoginFragment" />
+    </fragment>
+</navigation>
