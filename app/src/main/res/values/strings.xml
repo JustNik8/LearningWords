@@ -51,7 +51,7 @@
     <string name="text_login">Login</string>
     <string name="text_email">Email</string>
     <string name="text_password">Password</string>
-    <string name="button_sign_in">Sign In</string>
+    <string name="sign_in">Sign In</string>
     <string name="button_sign_up">Sing Up</string>
     <string name="error_sign_up">The email address is badly formatted or password length less than 6</string>
     <string name="button_forgot_password">Forgot Password?</string>
@@ -64,6 +64,14 @@
     <string name="email_entered_as_text">You entered as:</string>
     <string name="button_verify_email">Verify Email</string>
     <string name="sign_out">Sign Out</string>
+    <string name="button_sign_in_phone_main">Sign in with phone number</string>
+    <string name="title_sign_in_phone">Sign in with phone</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_code">Code</string>
+    <string name="button_verify_phone">Verify</string>
+    <string name="button_resend">Resend</string>
+    <string name="go_back_text">Go back</string>
+    <string name="you_entered_as_text">You entered as:</string>
 
 
 </resources>

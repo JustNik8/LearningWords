@@ -13,11 +13,11 @@
             android:id="@+id/action_mainLoginFragment_to_signUpEmailFragment"
             app:destination="@id/signUpEmailFragment" />
         <action
-            android:id="@+id/action_mainLoginFragment_to_phoneVerificationFragment"
-            app:destination="@id/phoneVerificationFragment" />
-        <action
             android:id="@+id/action_mainLoginFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_mainLoginFragment_to_signInPhoneFragment"
+            app:destination="@id/signInPhoneFragment" />
         <action
             android:id="@+id/action_mainLoginFragment_to_emailVerificationFragment"
             app:destination="@id/emailVerificationFragment" />
@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_signUpEmailFragment_to_emailVerificationFragment"
             app:destination="@id/emailVerificationFragment" />
+        <action
+            android:id="@+id/action_signUpEmailFragment_to_mainLoginFragment"
+            app:destination="@id/mainLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/emailVerificationFragment"
@@ -37,23 +40,26 @@
         android:label="fragment_verification"
         tools:layout="@layout/fragment_email_verification" >
         <action
-            android:id="@+id/action_verificationFragment_to_mainLoginFragment"
-            app:destination="@id/mainLoginFragment" />
-        <action
             android:id="@+id/action_emailVerificationFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_mainLoginFragment"
+            app:destination="@id/mainLoginFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.learningwords.MainActivity"
         android:label="MainActivity" />
     <fragment
-        android:id="@+id/phoneVerificationFragment"
-        android:name="com.example.learningwords.ui.login.PhoneVerificationFragment"
-        android:label="fragment_phone_verification"
-        tools:layout="@layout/fragment_phone_verification" >
+        android:id="@+id/signInPhoneFragment"
+        android:name="com.example.learningwords.ui.login.SignInPhoneFragment"
+        android:label="fragment_sign_in_phone"
+        tools:layout="@layout/fragment_sign_in_phone">
         <action
-            android:id="@+id/action_phoneVerificationFragment_to_mainLoginFragment"
+            android:id="@+id/action_signUpPhoneFragment_to_mainLoginFragment"
             app:destination="@id/mainLoginFragment" />
+        <action
+            android:id="@+id/action_signUpPhoneFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
 </navigation>

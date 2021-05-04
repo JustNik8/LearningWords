@@ -23,6 +23,10 @@ import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
 import com.example.learningwords.Word;
 import com.example.learningwords.WordHomeAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,7 @@ import java.util.Random;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    TextView tv;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +60,14 @@ public class HomeFragment extends Fragment {
             wordHomeAdapter.setWords(words);
             homeViewModel.setWordsAmount(wordsAmount);
         }
+
+
+        /*
+        tv = root.findViewById(R.id.acc);
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+        if (signInAccount != null){
+            tv.setText(signInAccount.getEmail());
+        }*/
 
         return root;
     }

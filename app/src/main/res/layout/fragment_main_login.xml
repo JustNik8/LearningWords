@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/button_sign_in"
+        android:text="@string/sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,48 +77,50 @@
         android:id="@+id/title_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:text="@string/title_sign_up"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_forgot_password" />
 
+
     <Button
-        android:id="@+id/button_sign_up_email"
+        android:id="@+id/button_sign_in_phone_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/button_sign_up_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:drawableLeft="@drawable/ic_email"
+        android:drawableLeft="@drawable/ic_phone"
+        android:text="@string/button_sign_in_phone_main"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_sign_up" />
 
     <Button
-        android:id="@+id/button_sign_up_phone"
+        android:id="@+id/button_sign_up_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/button_sign_up_phone"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:drawableLeft="@drawable/ic_phone"
+        android:drawableLeft="@drawable/ic_email"
+        android:text="@string/button_sign_up_email"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sign_up_email" />
+        app:layout_constraintTop_toBottomOf="@+id/button_sign_in_google" />
 
     <Button
         android:id="@+id/button_sign_in_google"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/button_sign_in_google"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:drawableLeft="@drawable/ic_google"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/secondary_color"
+        android:drawableLeft="@drawable/ic_google"
+        android:text="@string/button_sign_in_google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_sign_up_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/button_sign_in_phone_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -97,8 +97,10 @@ public class SignUpEmailFragment extends Fragment {
                                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                             }
+                            Bundle args = new Bundle();
+                            args.putString("email", email);
                             NavHostFragment.findNavController(SignUpEmailFragment.this)
-                                    .navigate(R.id.action_signUpEmailFragment_to_emailVerificationFragment);
+                                    .navigate(R.id.action_signUpEmailFragment_to_emailVerificationFragment, args);
                         }
                         else{
                             tvError.setVisibility(View.VISIBLE);

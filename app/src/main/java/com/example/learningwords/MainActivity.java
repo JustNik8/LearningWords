@@ -91,20 +91,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         database = FirebaseDatabase.getInstance("https://learningwordsdatabase-default-rtdb.europe-west1.firebasedatabase.app/");
         DatabaseReference dbRef = database.getReference(USER_KEY);
 
-        /*
-        List<HomeWord> wordList = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
-            wordList.add(new HomeWord("Word", "Слово", "B1"));
-        }
-        String id = dbRef.getKey();
-        User user = new User("Sanya", wordList, id);
-        id = dbRef.getKey();
-        User user1 = new User("Alex", wordList, id);
-
-        dbRef.push().setValue(user);
-        dbRef.push().setValue(user1);
-        */
-
     }
 
     private void changeTheme(String theme){

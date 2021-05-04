@@ -39,6 +39,7 @@ public class EmailVerificationFragment extends Fragment {
     }
 
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -49,7 +50,6 @@ public class EmailVerificationFragment extends Fragment {
                     .navigate(R.id.action_emailVerificationFragment_to_mainActivity);
         }
         else {
-
             init(view);
             tvEmail.setText(email);
             user.sendEmailVerification();
@@ -79,7 +79,7 @@ public class EmailVerificationFragment extends Fragment {
                 public void onClick(View v) {
                     FirebaseAuth.getInstance().signOut();
                     NavHostFragment.findNavController(EmailVerificationFragment.this)
-                            .navigate(R.id.action_verificationFragment_to_mainLoginFragment);
+                            .navigate(R.id.action_emailVerificationFragment_to_mainLoginFragment);
                 }
             });
         }
