@@ -200,7 +200,7 @@ public class SignInPhoneFragment extends Fragment {
                 .setForceResendingToken(token)
                 .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
-        showInfo("Code was resented to" + etPhoneNumber.getText().toString(), Color.GREEN);
+        showInfo("Resending...", Color.GREEN);
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential){
