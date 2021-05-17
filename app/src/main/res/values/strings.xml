@@ -16,17 +16,20 @@
     <string name="notifications_title">Notifications</string>
     <string name="notifications_text">Open notifications settings</string>
     <string-array name="choose_theme_title">Choose theme</string-array>
-    <string name="words_amount_dialog_message">Allowed from 1 to 50 words\n(Recommended: from 10 to 20)</string>
+    <string name="words_amount_dialog_message">Allowed from 5 to 30 words\n(Recommended: from 10 to 20)</string>
     <string name="words_amount_title">Amount of words</string>
     <string name="clear_dictionary_title">Clear dictionary</string>
     <string name="dialog_alert">Are you sure you want to clear dictionary?</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
     <string name="dictionary_cleared_text">The dictionary was cleared</string>
-    <string name="word_changed_text">The word was updated</string>
-    <string name="word_deleted_text">The word was deleted</string>
+
     <string name="input_number_error">Input a number</string>
     <string name="invalid_number_error">Invalid number was entered</string>
+    <string name="sign_out_message">Are you sure you want to sign out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="title_user">User</string>
 
     <!-- Add word fragment -->
     <string name="add_word_title">Adding a word</string>
@@ -35,6 +38,10 @@
     <string name="add_word_text">Add the word</string>
     <string name="error_filled_in">Must be filled in</string>
     <string name="error_english_word">Must be english word</string>
+
+    <!-- Dictionary Fragment -->
+    <string name="word_changed_text">The word was updated</string>
+    <string name="word_deleted_text">The word was deleted</string>
 
     <!-- Change word fragment -->
     <string name="changing_word_title">Changing a word</string>
@@ -52,12 +59,10 @@
     <string name="text_email">Email</string>
     <string name="text_password">Password</string>
     <string name="sign_in">Sign In</string>
-    <string name="button_sign_up">Sing Up</string>
     <string name="error_sign_up">The email address is badly formatted or password length less than 6</string>
     <string name="button_forgot_password">Forgot Password?</string>
     <string name="title_sign_up">OR</string>
     <string name="button_sign_up_email">Sign Up with email</string>
-    <string name="button_sign_up_phone">Sign up with phone number</string>
     <string name="button_sign_in_google">Sign in with Google</string>
     <string name="title_sign_up_email">Sign Up with email</string>
     <string name="button_sign_up_email2">Sign up</string>
@@ -71,7 +76,15 @@
     <string name="button_verify_phone">Verify</string>
     <string name="button_resend">Resend</string>
     <string name="go_back_text">Go back</string>
-    <string name="you_entered_as_text">You entered as:</string>
+
+    <!-- Training Fragment -->
+    <string name="right">Right</string>
+    <string name="wrong">Wrong</string>
+    <string name="test_passed">You passed the test</string>
+    <string name="text_not_passed">You didn\'t pass the test</string>
+    <string name="correct_answers_percent">\"Percentage of correct answers: \"</string>
+    <string name="try_again">Try again</string>
+    <string name="go_home">Go home</string>
 
 
 </resources>

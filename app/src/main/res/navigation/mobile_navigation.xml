@@ -28,7 +28,11 @@
         android:id="@+id/navigation_training"
         android:name="com.example.learningwords.ui.training.TrainingFragment"
         android:label="@string/title_training"
-        tools:layout="@layout/fragment_training" />
+        tools:layout="@layout/fragment_training" >
+        <action
+            android:id="@+id/action_navigation_training_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.learningwords.ui.settings.SettingsFragment"

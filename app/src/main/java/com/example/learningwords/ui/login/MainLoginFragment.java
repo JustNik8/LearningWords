@@ -119,7 +119,7 @@ public class MainLoginFragment extends Fragment {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Toast.makeText(getContext(), "User not null", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "User not null", Toast.LENGTH_SHORT).show();
 
             if (currentUser.getEmail().isEmpty()) {
                 NavHostFragment.findNavController(MainLoginFragment.this)
@@ -138,24 +138,9 @@ public class MainLoginFragment extends Fragment {
             }
         }
         else {
-            Toast.makeText(getContext(), "User null", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "User null", Toast.LENGTH_SHORT).show();
         }
-            /*
-            if (!currentUser.getPhoneNumber().isEmpty()){
-                NavHostFragment.findNavController(MainLoginFragment.this)
-                        .navigate(R.id.action_mainLoginFragment_to_mainActivity);
-            }
 
-            else if (currentUser.isEmailVerified()){
-                NavHostFragment.findNavController(MainLoginFragment.this)
-                        .navigate(R.id.action_mainLoginFragment_to_mainActivity);
-            }
-            else {
-                Bundle args = new Bundle();
-                args.putString("email", currentUser.getEmail());
-                NavHostFragment.findNavController(MainLoginFragment.this)
-                        .navigate(R.id.action_mainLoginFragment_to_emailVerificationFragment, args);
-            }*/
 
     }
 
@@ -165,7 +150,7 @@ public class MainLoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
                             FirebaseUser currentUser = mAuth.getCurrentUser();
 
                             if (currentUser != null){
@@ -176,7 +161,7 @@ public class MainLoginFragment extends Fragment {
                             }
                         }
                         else{
-                            Toast.makeText(getContext(), "Sign in unsuccessful", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "Sign in unsuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

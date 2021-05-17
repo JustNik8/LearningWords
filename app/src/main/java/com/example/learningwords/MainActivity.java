@@ -1,9 +1,12 @@
 package com.example.learningwords;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.learningwords.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -15,8 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
@@ -25,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String CONFIGURED = "configured";
-    public static final String packageName = "com.example.learningwords";
-    public static final String USERS_KEY = "users";
-    public static final String WORDS_KEY = "words";
+
     FirebaseDatabase database;
 
     private boolean configured = false;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -61,11 +65,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         }
 
-        database = FirebaseDatabase.getInstance("https://learningwordsdatabase-default-rtdb.europe-west1.firebasedatabase.app/");
-        DatabaseReference dbUsersRef = database.getReference(USERS_KEY);
-        DatabaseReference dbWordsRef = database.getReference(WORDS_KEY);
-
-
+        database = FirebaseDatabase.getInstance(FireBaseRef.ref);
+        DatabaseReference dbUsersRef = database.getReference(Constants.USERS_KEY);
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         User user = new User(userId);
@@ -85,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         Log.d(LOG_TAG, user.toString());
 
+        if (!shared.contains(Constants.CHANGED_KEY)){
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putInt(Constants.CHANGED_KEY, 1);
+            editor.apply();
+        }
 
     }
 

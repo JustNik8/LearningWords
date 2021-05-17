@@ -39,9 +39,9 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="User">
+        app:title="@string/title_user">
         <Preference
-            app:title="Sign Out"
+            app:title="@string/sign_out"
             android:key="sign_out"/>
     </PreferenceCategory>
 

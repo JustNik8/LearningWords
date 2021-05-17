@@ -10,21 +10,28 @@ import java.io.Serializable;
 @Entity(tableName = "words")
 public class Word implements Serializable {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "original")
     private String original;
     @ColumnInfo(name = "translated")
     private String translated;
+    @ColumnInfo(name = "type")
+    private String type;
 
     @Ignore
     private boolean expanded;
 
-    public Word(String original, String translated) {
+    public Word(String original, String translated, String type) {
         this.original = original;
         this.translated = translated;
+        this.type = type;
         expanded = false;
+    }
+
+
+    public Word() {
     }
 
     public boolean isExpanded() {
@@ -57,5 +64,24 @@ public class Word implements Serializable {
 
     public void setTranslated(String translated) {
         this.translated = translated;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "id=" + id +
+                ", original='" + original + '\'' +
+                ", translated='" + translated + '\'' +
+                ", type='" + type + '\'' +
+                ", expanded=" + expanded +
+                '}';
     }
 }

@@ -14,7 +14,9 @@ public class DBClient {
 
     public DBClient(Context ctx) {
         this.ctx = ctx;
-        appDatabase = Room.databaseBuilder(ctx, WordsDatabase.class, "WordDataBase").build();
+        appDatabase = Room.databaseBuilder(ctx, WordsDatabase.class, "WordDataBase")
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     public static DBClient getInstance(Context ctx){

@@ -7,17 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.learningwords.Constants;
+import com.example.learningwords.FireBaseRef;
 import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
+import com.example.learningwords.Repository;
 import com.example.learningwords.User;
 import com.example.learningwords.Word;
 import com.example.learningwords.WordHomeAdapter;
@@ -30,63 +34,77 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static com.example.learningwords.Constants.USERS_KEY;
+import static com.example.learningwords.Constants.WORDS_KEY;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    Button buttonStart;
-    WordHomeAdapter wordHomeAdapter;
-    DatabaseReference dbUserRef;
-    DatabaseReference dbWordsRef;
-    FirebaseDatabase database;
+    private WordHomeAdapter wordHomeAdapter;
+    private DatabaseReference dbUserRef;
+    private DatabaseReference dbWordsRef;
+    private FirebaseDatabase database;
 
-    User user;
-    String sLevel;
-    int sAmount;
+    private User user;
+    private String userId;
+    private Repository repository;
 
-    public static final String WORDS_KEY = "words";
-    public static final String USERS_KEY = "users";
-    public static final String LEARNT_WORDS_KEY = "learntWords";
-
+    private  boolean changed;
+    private int wordsAmount;
+    private String level;
+    private SharedPreferences shared;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        database = FirebaseDatabase.getInstance("https://learningwordsdatabase-default-rtdb.europe-west1.firebasedatabase.app/");
+        database = FirebaseDatabase.getInstance(FireBaseRef.ref);
         dbWordsRef = database.getReference(WORDS_KEY);
         dbUserRef = database.getReference(USERS_KEY);
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         user = new User(userId);
+        repository = new Repository(getContext());
+
+        shared = PreferenceManager.getDefaultSharedPreferences(getContext());
+        wordsAmount = Integer.parseInt(shared.getString("words_amount", "10"));
+        level = shared.getString("level", "A1").toUpperCase();
+        changed = shared.getInt("changed", 0) == 1;
+
 
         dbUserRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
 
-                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getContext());
-                int wordsAmount = Integer.parseInt(shared.getString("words_amount", "10"));
-                String level = shared.getString("level", "A1").toUpperCase();
-
                 RecyclerView recyclerView = root.findViewById(R.id.home_word_rv);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 wordHomeAdapter = new WordHomeAdapter(HomeFragment.this, user, level, wordsAmount);
                 recyclerView.setAdapter(wordHomeAdapter);
 
-                loadWords(user, level, wordsAmount);
+                homeViewModel.getWords().observe(getViewLifecycleOwner(), new Observer<List<Word>>() {
+                    @Override
+                    public void onChanged(List<Word> words) {
+                        if (words != null){
+                            wordHomeAdapter.setWords(words);
+                            //Log.d(MainActivity.LOG_TAG, words.toString());
 
-                buttonStart = root.findViewById(R.id.button_start_learning);
-                buttonStart.setEnabled(user.getTrainingPercent() >= 80);
-                    buttonStart.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            user.setTrainingPercent(0);
-                            buttonStart.setEnabled(false);
-                            dbUserRef.child(user.getUserId()).setValue(user);
-                            wordHomeAdapter.notifyDataSetChanged();
                         }
-                    });
+                    }
+                });
+
+                if (changed){
+                    repository.deleteAllWordsByType(Constants.WORD_TYPE_HOME);
+                    user.clearWordsInProgress();
+                    Log.d(MainActivity.LOG_TAG, "Inside changed = " + changed);
+                    loadWordsFromFirebase(user, level, wordsAmount);
+                    changed = false;
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.putInt("changed", 0);
+                    editor.apply();
+                }
 
             }
             @Override
@@ -94,27 +112,32 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
 
         return root;
     }
 
-    private void loadWords(User user, String level, int wordsAmount){
-
-        int learntWordsByLevel =  user.getLearntWordsByLevel(level);
-        int toLearn = learntWordsByLevel + wordsAmount - 1;
-
+    private void loadWordsFromFirebase(User user, String level, int wordsAmount) {
         List<Word> words = new ArrayList<>();
-        dbWordsRef.child(level).orderByChild("number").startAt(learntWordsByLevel)
-                .endAt(toLearn).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWordsRef.child(level).orderByChild("number")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    String original = String.valueOf(snapshot.child("original").getValue());
-                    String translated = String.valueOf(snapshot.child("translated").getValue());
-                    words.add(new Word(original, translated));
+                int counter = 0;
+                List<Integer> learntNumbers = user.getLearntNumbersByLevel(level);
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (counter >= wordsAmount){
+                        break;
+                    }
+                    Word word = data.getValue(Word.class);
+                    int number = ((Long) data.child("number").getValue()).intValue();
+                    if (!learntNumbers.contains(number)) {
+                        word.setType(Constants.WORD_TYPE_HOME);
+                        user.addWordInProgress(number);
+                        repository.insert(word);
+                        counter++;
+                    }
                 }
-                wordHomeAdapter.setWords(words);
+                dbUserRef.child(user.getUserId()).setValue(user);
             }
 
             @Override
@@ -122,5 +145,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
     }
+
 }

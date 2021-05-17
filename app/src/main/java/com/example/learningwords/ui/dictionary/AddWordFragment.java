@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.learningwords.Constants;
 import com.example.learningwords.DBClient;
 import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
@@ -84,7 +85,7 @@ public class AddWordFragment extends Fragment {
         }
         String originalWord = etOriginalWord.getText().toString();
         String translatedWord = etTranslatedWord.getText().toString();
-        Word word = new Word(originalWord, translatedWord);
+        Word word = new Word(originalWord, translatedWord, Constants.WORD_TYPE_DICTIONARY);
 
         dictionaryViewModel.insert(word);
 

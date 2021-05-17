@@ -1,6 +1,7 @@
 package com.example.learningwords.room;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,7 +14,6 @@ import java.util.List;
 
 @Dao
 public interface WordDao {
-
     @Insert
     void insert(Word word);
 
@@ -23,9 +23,12 @@ public interface WordDao {
     @Update
     void update(Word word);
 
-    @Query("SELECT * FROM words")
-    LiveData<List<Word>> getAllWords();
+    @Query("SELECT * FROM words WHERE type = :type")
+    LiveData<List<Word>> getWordsByType(String type);
 
     @Query("DELETE FROM words")
     void deleteAll();
+
+    @Query("DELETE FROM words WHERE type = :type")
+    void deleteAllWordsByType(String type);
 }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -16,21 +17,37 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
+import com.example.learningwords.Constants;
+import com.example.learningwords.FireBaseRef;
 import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
+import com.example.learningwords.User;
 import com.example.learningwords.ui.home.HomeViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static com.example.learningwords.Constants.USERS_KEY;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private SettingsViewModel settingsViewModel;
-    private int sourceAmount;
+    SharedPreferences shared;
+    String userId;
+    DatabaseReference dbUserRef;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.settings_preferences, rootKey);
+
+        shared = PreferenceManager.getDefaultSharedPreferences(getContext());
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance(FireBaseRef.ref);
+        dbUserRef = database.getReference(USERS_KEY);
 
         Preference notificationPreference = findPreference("notification");
         if (notificationPreference != null) {
@@ -41,7 +58,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         Log.d(MainActivity.LOG_TAG, "INSIDE");
                         Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, MainActivity.packageName);
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, Constants.packageName);
                         startActivityForResult(intent, 0);
                         return true;
                     }
@@ -64,7 +81,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         EditTextPreference wordsAmountPreference = findPreference("words_amount");
-        sourceAmount = Integer.parseInt(wordsAmountPreference.getText());
         wordsAmountPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -79,10 +95,27 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                 int amount = Integer.parseInt(amountString);
                 // Checking for valid number
-                if (amount < 1 || amount > 50){
+                if (amount < 5 || amount > 30){
                     Toast.makeText(getContext(), getString(R.string.invalid_number_error), Toast.LENGTH_LONG).show();
                     return false;
                 }
+
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putInt("changed", 1);
+                editor.apply();
+                dbUserRef.child(userId).child(Constants.AMOUNT_KEY).setValue(amount);
+                return true;
+            }
+        });
+
+        ListPreference levelPref = findPreference("level");
+        levelPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putInt("changed", 1);
+                editor.apply();
+                dbUserRef.child(userId).child(Constants.LEVEL_KEY).setValue(((String) newValue).toUpperCase());
                 return true;
             }
         });

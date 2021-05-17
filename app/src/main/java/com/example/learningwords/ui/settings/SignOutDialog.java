@@ -26,8 +26,8 @@ public class SignOutDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Are you sure you want to sign out?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.sign_out_message))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Firebase sign out
@@ -48,7 +48,7 @@ public class SignOutDialog extends DialogFragment {
                                 .navigate(R.id.action_navigation_settings_to_loginActivity);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Do nothing

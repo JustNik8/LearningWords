@@ -4,18 +4,17 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Repository {
 
     Context context;
-    private LiveData<List<Word>> allWords;
+    private List<Word> allWords;
     public Repository(Context context){
         this.context = context;
-        allWords = DBClient.getInstance(context).getAppDatabase()
-                .wordDao()
-                .getAllWords();
     }
 
     public void insert(Word word){
@@ -31,9 +30,6 @@ public class Repository {
         addWordThread.start();
     }
 
-    public LiveData<List<Word>> getAllWords(){
-        return allWords;
-    }
 
     public void deleteAll(){
         Thread deleteAllThread = new Thread(){
@@ -70,6 +66,19 @@ public class Repository {
             }
         };
         updateThread.start();
+    }
+
+    public void deleteAllWordsByType(String type){
+        Thread deleteThread = new Thread(){
+            @Override
+            public void run() {
+                DBClient.getInstance(context)
+                        .getAppDatabase()
+                        .wordDao()
+                        .deleteAllWordsByType(type);
+            }
+        };
+        deleteThread.start();
     }
 
 }

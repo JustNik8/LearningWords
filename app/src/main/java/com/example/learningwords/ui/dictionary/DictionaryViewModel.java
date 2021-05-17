@@ -1,7 +1,6 @@
 package com.example.learningwords.ui.dictionary;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,14 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.example.learningwords.Constants;
+import com.example.learningwords.DBClient;
 import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
 import com.example.learningwords.Repository;
 import com.example.learningwords.Word;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DictionaryViewModel extends AndroidViewModel {
@@ -45,8 +44,11 @@ public class DictionaryViewModel extends AndroidViewModel {
         repository.insert(word);
     }
 
-    public LiveData<List<Word>> getAllWords(){
-        return repository.getAllWords();
+    public LiveData<List<Word>> getDictionary(){
+        return DBClient.getInstance(getApplication())
+                .getAppDatabase()
+                .wordDao()
+                .getWordsByType(Constants.WORD_TYPE_DICTIONARY);
     }
 
     public void deleteAll(){
