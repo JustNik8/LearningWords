@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.example.learningwords.Repository;
 import com.example.learningwords.User;
 import com.example.learningwords.Word;
 import com.example.learningwords.WordHomeAdapter;
+import com.example.learningwords.ui.training.TrainingFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,6 +58,8 @@ public class HomeFragment extends Fragment {
     private String level;
     private SharedPreferences shared;
 
+    private TextView notSetInfo, notSetResources;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -68,11 +72,15 @@ public class HomeFragment extends Fragment {
         user = new User(userId);
         repository = new Repository(getContext());
 
+        notSetInfo = root.findViewById(R.id.home_not_set_info);
+        notSetResources = root.findViewById(R.id.home_not_set_resources);
+
         shared = PreferenceManager.getDefaultSharedPreferences(getContext());
         wordsAmount = Integer.parseInt(shared.getString("words_amount", "10"));
-        level = shared.getString("level", "A1").toUpperCase();
+        level = shared.getString("level", "not_set").toUpperCase();
         changed = shared.getInt("changed", 0) == 1;
-
+        Log.d(MainActivity.LOG_TAG, "LEVEL: " + level);
+        Log.d(MainActivity.LOG_TAG, String.valueOf(shared.getInt("changed", 2)));
 
         dbUserRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,13 +92,18 @@ public class HomeFragment extends Fragment {
                 wordHomeAdapter = new WordHomeAdapter(HomeFragment.this, user, level, wordsAmount);
                 recyclerView.setAdapter(wordHomeAdapter);
 
+                if (level.equals("NOT_SET")){
+                    recyclerView.setVisibility(View.GONE);
+                    notSetInfo.setVisibility(View.VISIBLE);
+                    notSetResources.setVisibility(View.VISIBLE);
+                    return;
+                }
+
                 homeViewModel.getWords().observe(getViewLifecycleOwner(), new Observer<List<Word>>() {
                     @Override
                     public void onChanged(List<Word> words) {
                         if (words != null){
                             wordHomeAdapter.setWords(words);
-                            //Log.d(MainActivity.LOG_TAG, words.toString());
-
                         }
                     }
                 });
@@ -105,6 +118,7 @@ public class HomeFragment extends Fragment {
                     editor.putInt("changed", 0);
                     editor.apply();
                 }
+
 
             }
             @Override
@@ -147,5 +161,4 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
 }

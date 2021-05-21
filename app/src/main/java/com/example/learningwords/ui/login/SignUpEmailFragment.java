@@ -48,12 +48,12 @@ public class SignUpEmailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etEmail.getText().toString().isEmpty()){
-                    etEmail.setError("Enter an email");
+                    etEmail.setError(getString(R.string.enter_email_text));
                     etEmail.requestFocus();
                     return;
                 }
                 if (etPassword.getText().toString().isEmpty()){
-                    etPassword.setError("Enter a password");
+                    etPassword.setError(getString(R.string.enter_password_text));
                     etPassword.requestFocus();
                     return;
                 }
@@ -75,12 +75,6 @@ public class SignUpEmailFragment extends Fragment {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
-            Toast.makeText(getContext(), "User not null", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(getContext(), "User null", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void createAccount(String email, String password){
@@ -90,7 +84,7 @@ public class SignUpEmailFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             tvError.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), "Sign Up successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.sign_in_successful), Toast.LENGTH_SHORT).show();
 
                             View view = getActivity().getCurrentFocus();
                             if (view != null){
@@ -104,7 +98,7 @@ public class SignUpEmailFragment extends Fragment {
                         }
                         else{
                             tvError.setVisibility(View.VISIBLE);
-                            Toast.makeText(getContext(), "Sign Up unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.sign_in_unsuccessful), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -11,5 +11,6 @@ public class Constants {
     public static final String TRAINING_PASSED_KEY = "trainingPassed";
     public static final String CHANGED_KEY = "changed";
     public static final String packageName = "com.example.learningwords";
+    public static final String EMAIL_KEY = "email";
 
 }

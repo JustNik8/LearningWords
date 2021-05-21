@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -31,6 +32,8 @@ import com.example.learningwords.ui.home.HomeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Set;
 
 import static com.example.learningwords.Constants.USERS_KEY;
 
@@ -48,6 +51,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance(FireBaseRef.ref);
         dbUserRef = database.getReference(USERS_KEY);
+
+
+        Preference themePreference = findPreference("theme");
+        themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
+                startActivity(intent);
+                return true;
+            }
+        });
 
         Preference notificationPreference = findPreference("notification");
         if (notificationPreference != null) {
@@ -131,6 +145,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             });
         }
+
 
     }
 

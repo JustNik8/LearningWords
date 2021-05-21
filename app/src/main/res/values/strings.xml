@@ -9,7 +9,7 @@
     <string name="title_change_word">Changing word</string>
 
     <!-- Settings strings -->
-    <string name="choose_theme_text">Choose theme</string>
+    <string name="change_theme_text">Change theme in settings</string>
     <string name="choose_level_title">Choose your English level</string>
     <string name="app_settings_title">App settings</string>
     <string name="user_setting_title">User settings</string>
@@ -53,6 +53,13 @@
 
     <!-- Home Fragment -->
     <string name="learn_new_words">Learn new words</string>
+    <string name="not_set_info">Select your level in the settings to see the list of words.\n
+        If you don\'t know your level, you can take the following tests:
+    </string>
+
+    <string name="not_set_resources">https://www.cambridgeenglish.org.ru/test-your-english/general-english/
+        \n\n
+        https://learnenglish.britishcouncil.org/online-english-level-test</string>
 
     <!-- Login -->
     <string name="text_login">Login</string>
@@ -67,7 +74,7 @@
     <string name="title_sign_up_email">Sign Up with email</string>
     <string name="button_sign_up_email2">Sign up</string>
     <string name="email_entered_as_text">You entered as:</string>
-    <string name="button_verify_email">Verify Email</string>
+    <string name="button_verify_email">I verified the email</string>
     <string name="sign_out">Sign Out</string>
     <string name="button_sign_in_phone_main">Sign in with phone number</string>
     <string name="title_sign_in_phone">Sign in with phone</string>
@@ -76,6 +83,21 @@
     <string name="button_verify_phone">Verify</string>
     <string name="button_resend">Resend</string>
     <string name="go_back_text">Go back</string>
+    <string name="reset_password">Reset password</string>
+    <string name="info_message_sent">The message to reset password was sent to</string>
+    <string name="info_message_error">An error occurred</string>
+    <string name="sign_in_error">Invalid email or password.</string>
+    <string name="invalid_phone_number">Invalid phone number</string>
+    <string name="invalid_code">Invalid code</string>
+    <string name="too_many_requests">Too Many Requests</string>
+    <string name="resending_text">Resending...</string>
+    <string name="sign_in_successful">Sign in successful</string>
+    <string name="sign_in_unsuccessful">Sign in unsuccessful</string>
+    <string name="code_sent_to">Code was sent to</string>
+    <string name="enter_email_text">Enter an email</string>
+    <string name="enter_password_text">Enter a password</string>
+    <string name="message_sent_text">A confirmation message was sent to this email address</string>
+    <string name="havent_verified_text">You haven\'t verified</string>
 
     <!-- Training Fragment -->
     <string name="right">Right</string>
@@ -85,6 +107,7 @@
     <string name="correct_answers_percent">\"Percentage of correct answers: \"</string>
     <string name="try_again">Try again</string>
     <string name="go_home">Go home</string>
+    <string name="training_not_set_info">Select your level in the settings</string>
 
 
 </resources>

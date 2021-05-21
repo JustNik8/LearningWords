@@ -1,6 +1,8 @@
 package com.example.learningwords.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.BadParcelableException;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.learningwords.Constants;
 import com.example.learningwords.MainActivity;
 import com.example.learningwords.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -25,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +43,7 @@ public class MainLoginFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private EditText etEmail, etPassword;
-    private Button buttonSignIn, buttonSignUpEmail, buttonSignInPhone, buttonSignInGoogle;
+    private Button buttonSignIn, buttonSignUpEmail, buttonSignInPhone, buttonSignInGoogle, buttonForgot;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
 
@@ -69,14 +74,19 @@ public class MainLoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etEmail.getText().toString().isEmpty()){
-                    etEmail.setError("Enter an email");
+                    etEmail.setError(getString(R.string.enter_email_text));
                     etEmail.requestFocus();
                 }
                 if (etPassword.getText().toString().isEmpty()){
-                    etPassword.setError("Enter a password");
+                    etPassword.setError(getString(R.string.enter_password_text));
                     etPassword.requestFocus();
                 }
-                signIn(etEmail.getText().toString(), etPassword.getText().toString());
+                signIn(etEmail.getText().toString(), etPassword.getText().toString(), v);
+                View view = getActivity().getCurrentFocus();
+                if (view != null){
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
             }
         });
 
@@ -96,6 +106,17 @@ public class MainLoginFragment extends Fragment {
             }
         });
 
+        buttonForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                String email = etEmail.getText().toString();
+                args.putString(Constants.EMAIL_KEY, email);
+                NavHostFragment.findNavController(MainLoginFragment.this)
+                        .navigate(R.id.action_mainLoginFragment_to_resetPasswordFragment, args);
+            }
+        });
+
     }
 
     private void init(View view){
@@ -106,6 +127,7 @@ public class MainLoginFragment extends Fragment {
         buttonSignInPhone = view.findViewById(R.id.button_sign_in_phone_main);
         buttonSignInGoogle = view.findViewById(R.id.button_sign_in_google);
         mAuth = FirebaseAuth.getInstance();
+        buttonForgot = view.findViewById(R.id.button_forgot_password);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -144,7 +166,7 @@ public class MainLoginFragment extends Fragment {
 
     }
 
-    private void signIn(String email, String password){
+    private void signIn(String email, String password, View v){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -161,7 +183,7 @@ public class MainLoginFragment extends Fragment {
                             }
                         }
                         else{
-                            //Toast.makeText(getContext(), "Sign in unsuccessful", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(v, getString(R.string.sign_in_error), BaseTransientBottomBar.LENGTH_LONG).show();
                         }
                     }
                 });

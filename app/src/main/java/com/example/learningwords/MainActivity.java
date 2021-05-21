@@ -26,7 +26,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity{
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String CONFIGURED = "configured";
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -52,18 +51,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         NavigationUI.setupWithNavController(navView, navController);
 
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
-        shared.registerOnSharedPreferenceChangeListener(this);
-
-        if(savedInstanceState == null) {
-            configured = true;
-            changeTheme(shared.getString("theme", "default"));
-        }
-        else {
-            configured = savedInstanceState.getBoolean(CONFIGURED);
-            if (!configured){
-                changeTheme(shared.getString("theme", "default"));
-            }
-        }
 
         database = FirebaseDatabase.getInstance(FireBaseRef.ref);
         DatabaseReference dbUsersRef = database.getReference(Constants.USERS_KEY);
@@ -76,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (!dataSnapshot.exists()) {
+                    user.setWordsAmount(10);
                     dbUsersRef.child(userId).setValue(user);
                 }
             }
@@ -92,34 +80,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             editor.apply();
         }
 
-    }
-
-    private void changeTheme(String theme){
-        Log.d(LOG_TAG, "INSIDE changeTheme");
-        if (theme.equals(getResources().getStringArray(R.array.themes_values)[0])){ //Default theme
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        }
-        else if (theme.equals(getResources().getStringArray(R.array.themes_values)[1])){ //Light theme
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        else if (theme.equals(getResources().getStringArray(R.array.themes_values)[2])){ //Dark theme
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-    }
-
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(LOG_TAG, "onSharedPreferenceChanged");
-        if (key.equals("theme")){
-            changeTheme(sharedPreferences.getString(key, "default"));
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(CONFIGURED, configured);
     }
 
 }

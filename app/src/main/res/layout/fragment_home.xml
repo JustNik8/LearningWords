@@ -20,17 +20,32 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/word_home_item" />
 
-    <!--
-    <Button
-        android:id="@+id/button_start_learning"
+    <TextView
+        android:id="@+id/home_not_set_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/learn_new_words"
+        android:text="@string/not_set_info"
+        android:layout_margin="24dp"
+        android:visibility="gone"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" /> -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/home_not_set_resources"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/not_set_resources"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="18dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textIsSelectable="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/home_not_set_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

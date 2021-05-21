@@ -45,6 +45,7 @@ public class TrainingFragment extends Fragment {
     Button buttonTryAgain, buttonGoHome;
     TextView tvTitle, tvPercent;
     TextView tvWord;
+    TextView notSetInfo;
     ProgressBar progressBar;
 
     FirebaseDatabase database;
@@ -84,12 +85,22 @@ public class TrainingFragment extends Fragment {
 
         getUserAndStartTraining();
 
-
-
     }
 
 
     private void startTraining(List<Word> words){
+
+        level = shared.getString("level", "not_set").toUpperCase();
+        if (level.equals("NOT_SET")){
+            notSetInfo.setVisibility(View.VISIBLE);
+            tvWord.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            for (Button button : answerButtons){
+                button.setVisibility(View.INVISIBLE);
+            }
+            return;
+        }
+
         actions = 0;
         Collections.shuffle(words);
 
@@ -229,6 +240,7 @@ public class TrainingFragment extends Fragment {
         buttonGoHome = view.findViewById(R.id.button_go_home);
         tvTitle = view.findViewById(R.id.title_finish);
         tvPercent = view.findViewById(R.id.tv_percent);
+        notSetInfo = view.findViewById(R.id.training_not_set);
 
         database = FirebaseDatabase.getInstance(FireBaseRef.ref);
         dbWordsRef = database.getReference(Constants.WORDS_KEY);

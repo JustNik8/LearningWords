@@ -61,12 +61,12 @@ public class EmailVerificationFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (user.isEmailVerified()){
-                                Toast.makeText(getContext(), "Verification successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getString(R.string.sign_in_successful), Toast.LENGTH_SHORT).show();
                                 NavHostFragment.findNavController(EmailVerificationFragment.this)
                                         .navigate(R.id.action_emailVerificationFragment_to_mainActivity);
                             }
                             else{
-                                Toast.makeText(getContext(), "You haven't verified", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getString(R.string.havent_verified_text), Toast.LENGTH_SHORT).show();
 
                             }
                         }

@@ -3,13 +3,9 @@
     <PreferenceCategory
         app:title="@string/app_settings_title">
 
-        <ListPreference
-            app:defaultValue="default"
-            app:entries="@array/themes"
-            app:entryValues="@array/themes_values"
+        <Preference
             app:key="theme"
-            app:title="@string/choose_theme_text"
-            app:useSimpleSummaryProvider="true"/>
+            app:title="@string/change_theme_text"/>
 
         <Preference app:title="@string/notifications_text"
             android:key="notification"/>

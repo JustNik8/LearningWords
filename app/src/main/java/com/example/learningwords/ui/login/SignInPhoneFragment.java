@@ -67,7 +67,7 @@ public class SignInPhoneFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etPhoneNumber.getText().toString().isEmpty()){
-                    showInfo("Invalid phone number", Color.RED);
+                    showInfo(getString(R.string.invalid_phone_number), Color.RED);
                     return;
                 }
                 etPhoneNumber.setEnabled(false);
@@ -83,7 +83,9 @@ public class SignInPhoneFragment extends Fragment {
             public void onClick(View v) {
                 String code = etCodeField.getText().toString();
                 if (code.isEmpty()){
-                    etCodeField.setError("Invalid code");
+                    etCodeField.setError(getString(R.string.invalid_code));
+                    etCodeField.requestFocus();
+                    return;
                 }
                 verifyPhoneNumberWithCode(mVerificationId, code);
             }
@@ -115,12 +117,11 @@ public class SignInPhoneFragment extends Fragment {
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 mVerificationInProgress = false;
                 if (e instanceof FirebaseAuthInvalidCredentialsException){
-                    showInfo("Invalid phone number", Color.RED);
+                    showInfo(getString(R.string.invalid_phone_number), Color.RED);
                 }
                 else if (e instanceof FirebaseTooManyRequestsException){
-                    Snackbar.make(view, "Too Many Requests", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, getString(R.string.too_many_requests), Snackbar.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getContext(), "Verification failed", Toast.LENGTH_SHORT).show();
                 etPhoneNumber.setEnabled(true);
                 buttonSignIn.setEnabled(true);
 
@@ -130,7 +131,7 @@ public class SignInPhoneFragment extends Fragment {
             public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
                 mVerificationId = verificationId;
                 mResendToken = token;
-                showInfo("Code was sent to " + etPhoneNumber.getText().toString(), Color.GREEN);
+                showInfo(getString(R.string.code_sent_to) + " " + etPhoneNumber.getText().toString(), Color.GREEN);
                 etCodeField.setVisibility(View.VISIBLE);
                 buttonVerify.setVisibility(View.VISIBLE);
                 buttonResend.setVisibility(View.VISIBLE);
@@ -142,12 +143,6 @@ public class SignInPhoneFragment extends Fragment {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
-            Toast.makeText(getContext(), "User not null", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(getContext(), "User null", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -200,7 +195,7 @@ public class SignInPhoneFragment extends Fragment {
                 .setForceResendingToken(token)
                 .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
-        showInfo("Resending...", Color.GREEN);
+        showInfo(getString(R.string.resending_text), Color.GREEN);
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential){
@@ -209,17 +204,16 @@ public class SignInPhoneFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getContext(), "Verification completed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.sign_in_successful), Toast.LENGTH_SHORT).show();
                             etPhoneNumber.setEnabled(true);
                             hideInfo();
                             NavHostFragment.findNavController(SignInPhoneFragment.this)
                                     .navigate(R.id.action_signUpPhoneFragment_to_mainActivity);
                         }
                         else{
-                            Toast.makeText(getContext(), "Sign in unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.sign_in_unsuccessful), Toast.LENGTH_SHORT).show();
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException){
-                                etCodeField.setError("Invalid code");
+                                etCodeField.setError(getString(R.string.invalid_code));
                             }
                         }
                     }
